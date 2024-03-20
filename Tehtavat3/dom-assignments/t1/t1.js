@@ -28,3 +28,7 @@ const todoList = [
 ];
 
 // add your code here
+const ul = document.querySelector('ul');
+todoList.forEach((task) => {
+  ul.insertAdjacentHTML('beforeend', `<li><input type="checkbox" id="${task.id}" ${task.completed ? 'checked' : ''}><label for="${task.id}">${task.task}</label></li>`);
+});
