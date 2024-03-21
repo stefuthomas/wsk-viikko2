@@ -1,0 +1,78 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 15rem;
+}
+
+li {
+  border: 1px solid #000;
+  display: flex;
+  justify-content: flex-end;
+  line-height: 3rem;
+}
+
+label {
+  display: block;
+  width: 100%;
+  padding-left: 1rem;
+}
+
+input {
+  position: absolute;
+  margin: 1rem;
+}
+
+input[type='checkbox']:checked + label {
+  background-color: rgb(146, 208, 136);
+  font-weight: bold;
+}
+
+.add-new-task {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem; 
+}
+
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%;
+}
+
+.save-task {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-right: 3rem;
+  float: right;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
