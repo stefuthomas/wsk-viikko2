@@ -770,35 +770,31 @@ const restaurants = [
   },
 ];
 
-// Get current location
+let x1, y1;
+
 navigator.geolocation.getCurrentPosition(position => {
-  const currentLocation = {
-    latitude: position.coords.latitude,
-    longitude: position.coords.longitude
-  };
-
-  // Sort restaurants based on distance
-  restaurants.sort((a, b) => {
-    const distanceA = getDistance(currentLocation, a.location.coordinates);
-    const distanceB = getDistance(currentLocation, b.location.coordinates);
-    return distanceA - distanceB;
-  });
-
-  // Your code here
+  x1 = position.coords.latitude;
+  y1 = position.coords.longitude;
 });
 
-// Calculate distance between two points using Haversine formula
-function getDistance(location1, coordinates) {
-  const R = 6371e3; // Earth's radius in metres
-  const lat1 = location1.latitude * Math.PI/180;
-  const lat2 = coordinates[1] * Math.PI/180;
-  const deltaLat = (coordinates[1] - location1.latitude) * Math.PI/180;
-  const deltaLon = (coordinates[0] - location1.longitude) * Math.PI/180;
+for(let restaurant of restaurants){
+  let x2 = restaurant.location.coordinates[0];
+  let y2 = restaurant.location.coordinates[1];
+  restaurant.distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+}
 
-  const a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
-            Math.cos(lat1) * Math.cos(lat2) *
-            Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+restaurants.sort((a,b) => a.distance-b.distance);
 
-  return R * c;
+let target = document.querySelector('table');
+
+for(let restaurant of restaurants){
+  let row = document.createElement('tr');
+  let nameCell = document.createElement('td');
+  let adressCell = document.createElement('td');
+
+  nameCell.textContent = restaurant.name;
+  adressCell.textContent = restaurant.address;
+  row.appendChild(nameCell);
+  row.appendChild(adressCell);
+  target.appendChild(row);
 }
