@@ -16,11 +16,11 @@ async function getRestaurants() {
       console.log(data);
       data.forEach((restaurant) => {
         restaurants.push(restaurant);
-        restaurants.sort((a, b) => {
-          return a.name.localeCompare(b.name);
-        });
-        createTable();
       });
+      restaurants.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+      createTable();
     }
   } catch (error) {
     console.log("Error: ", error);
@@ -68,7 +68,7 @@ function createTable() {
       while (modalContent.firstChild) {
         modalContent.removeChild(modalContent.firstChild);
       }
-      
+
       const restaurantName = document.createElement("h2");
       restaurantName.textContent = restaurant.name;
       const restaurantAddress = document.createElement("p");
