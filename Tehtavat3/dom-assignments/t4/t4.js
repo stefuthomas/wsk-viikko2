@@ -770,31 +770,29 @@ const restaurants = [
   },
 ];
 
-let x1, y1;
-
 navigator.geolocation.getCurrentPosition(position => {
-  x1 = position.coords.latitude;
-  y1 = position.coords.longitude;
+  const x1 = position.coords.latitude;
+  const y1 = position.coords.longitude;
+
+  for(let restaurant of restaurants){
+    let x2 = restaurant.location.coordinates[0];
+    let y2 = restaurant.location.coordinates[1];
+    restaurant.distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+  }
+
+  restaurants.sort((a,b) => a.distance-b.distance);
+
+  let target = document.querySelector('table');
+
+  for(let restaurant of restaurants){
+    let row = document.createElement('tr');
+    let nameCell = document.createElement('td');
+    let adressCell = document.createElement('td');
+
+    nameCell.textContent = restaurant.name;
+    adressCell.textContent = restaurant.address;
+    row.appendChild(nameCell);
+    row.appendChild(adressCell);
+    target.appendChild(row);
+  }
 });
-
-for(let restaurant of restaurants){
-  let x2 = restaurant.location.coordinates[0];
-  let y2 = restaurant.location.coordinates[1];
-  restaurant.distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
-}
-
-restaurants.sort((a,b) => a.distance-b.distance);
-
-let target = document.querySelector('table');
-
-for(let restaurant of restaurants){
-  let row = document.createElement('tr');
-  let nameCell = document.createElement('td');
-  let adressCell = document.createElement('td');
-
-  nameCell.textContent = restaurant.name;
-  adressCell.textContent = restaurant.address;
-  row.appendChild(nameCell);
-  row.appendChild(adressCell);
-  target.appendChild(row);
-}
